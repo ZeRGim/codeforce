@@ -1,3 +1,31 @@
+# import sys
+# input = sys.stdin.readline
+
+# t = int(input())
+
+# for _ in range(t):
+#     n, s, m = map(int, input().split())
+#     intervals = [0] * m
+#     for i in range(n):
+#         a,b = map(int, input().split())
+#         for j in range(a,b):
+#             intervals[j] = 1
+#     cnt = 0
+#     found = False
+#     for i in intervals:
+#         if i:
+#             cnt = 0
+#         else:
+#             cnt += 1
+#         if cnt == s:
+#             found = True
+#             break
+#     if found:
+#         print("YES")
+#     else: print("NO")
+
+# MEMORY EXCEED
+
 import sys
 input = sys.stdin.readline
 
@@ -5,23 +33,13 @@ t = int(input())
 
 for _ in range(t):
     n, s, m = map(int, input().split())
-    intervals = []
+    intervals = [[0,0],[m,m]]
     for i in range(n):
-        start, end = map(int, input().split())
-        intervals.append((start, end))
-    
-    covered = [0] * (m + 1)
-    for start, end in intervals:
-        for j in range(start, end):
-            covered[j] = 1
-    
-    found = False
-    for i in range(m - s + 1):
-        if sum(covered[i:i+s]) == 0:
-            found = True
+        intervals.append(list(map(int, input().split())))
+    intervals.sort()
+    for i in range(1,len(intervals)):
+        if intervals[i][0] - intervals[i-1][1] >= s:
+            print("YES")
             break
-    
-    if found:
-        print("YES")
     else:
         print("NO")
